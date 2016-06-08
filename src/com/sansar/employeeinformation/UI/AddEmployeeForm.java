@@ -34,6 +34,8 @@ public class AddEmployeeForm extends javax.swing.JInternalFrame {
         email = new javax.swing.JLabel();
         email_txt = new javax.swing.JTextField();
 
+        setTitle("Add Employee Info");
+
         fname.setText("Enter First Name");
 
         lname.setText("Enter Last Name");

@@ -22,11 +22,9 @@ public class Program {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-     EmployeeUI emp=new EmployeeUI();
-     emp.setVisible(true);
-          
-      
-      
+        EmployeeUI emp = new EmployeeUI();
+        emp.setVisible(true);
+
     }
-    
+
 }
