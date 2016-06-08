@@ -11,9 +11,8 @@ package com.sansar.employeeinformation.UI;
  */
 public class EmployeeUI extends javax.swing.JFrame {
 
-    /**
-     * Creates new form EmployeeUI
-     */
+   
+
     public EmployeeUI() {
         initComponents();
     }
@@ -30,7 +29,7 @@ public class EmployeeUI extends javax.swing.JFrame {
         addEmp = new javax.swing.JButton();
         update_emp = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Employee Information");
 
         addEmp.setText("1.Add Employee");
         addEmp.addActionListener(new java.awt.event.ActionListener() {
@@ -46,29 +45,33 @@ public class EmployeeUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(addEmp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(update_emp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(245, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(update_emp))
+                .addContainerGap(202, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(63, 63, 63)
                 .addComponent(addEmp)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(update_emp)
-                .addContainerGap(206, Short.MAX_VALUE))
+                .addContainerGap(286, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void addEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmpActionPerformed
-        // TODO add your handling code here:
-        AddEmployeeForm add = new AddEmployeeForm();
-        add.show();
+        EmployeeUI em=new EmployeeUI();
+        em.setVisible(false);
+        AddEmployeeForm addEmp = new AddEmployeeForm();
+        add(addEmp);
+        addEmp.show();
+
+
     }//GEN-LAST:event_addEmpActionPerformed
 
     /**
