@@ -12,7 +12,6 @@ package com.sansar.employeeinformation.entity;
 public class Employee {
     private int id;
     private String firstName,lastName,email;
-   
 
     public Employee() {
     }
@@ -22,7 +21,6 @@ public class Employee {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-
     }
 
     public int getId() {
@@ -56,6 +54,15 @@ public class Employee {
     public void setEmail(String email) {
         this.email = email;
     }
+    
+    
+   
+
+    @Override
+    public String toString() {
+        return "Employee{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + '}';
+    }
+    
 
    
     

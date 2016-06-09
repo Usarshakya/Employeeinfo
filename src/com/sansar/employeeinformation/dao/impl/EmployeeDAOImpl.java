@@ -25,7 +25,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public int insert(Employee e) throws ClassNotFoundException, SQLException {
         db.open();
-        String sql = "INSERT INTO employee(first_name,last_name,email)VALUE(?,?,?,?)";
+        String sql = "INSERT INTO tbl_categories(first_name,last_name,email)VALUE(?,?,?)";
         PreparedStatement stmt = db.initStatement(sql);
         stmt.setString(1, e.getFirstName());
         stmt.setString(2, e.getLastName());
@@ -39,7 +39,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public int update(Employee e) throws ClassNotFoundException, SQLException {
         db.open();
-        String sql = "UPDATE employee SET first_name=?,last_name=?,email=? WHERE id=?";
+        String sql = "UPDATE tbl_categories SET first_name=?,last_name=?,email=? WHERE id=?";
         PreparedStatement stmt = db.initStatement(sql);
         stmt.setString(1, e.getFirstName());
         stmt.setString(2, e.getLastName());
@@ -53,7 +53,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public int delete(int id) throws ClassNotFoundException, SQLException {
         db.open();
-        String sql = "DELETE FROM employee WHERE id=?";
+        String sql = "DELETE FROM tbl_categories WHERE id=?";
         PreparedStatement stmt = db.initStatement(sql);
         stmt.setInt(1, id);
 
@@ -66,7 +66,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public Employee searchByID(int id) throws ClassNotFoundException, SQLException {
         Employee e = null;
         db.open();
-        String sql = "SELECT * FROM employee WHERE id=?";
+        String sql = "SELECT * FROM tbl_categories WHERE id=?";
         PreparedStatement stmt = db.initStatement(sql);
         stmt.setInt(1, id);
 

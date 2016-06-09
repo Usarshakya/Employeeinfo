@@ -27,7 +27,7 @@ public class DBConnection {
     
     public void open() throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.jdbc.Driver");
-        conn=DriverManager.getConnection("jdbc:mysql://localhost/employee", "root", "");
+        conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee1", "root", "");
     }
     
     public PreparedStatement initStatement(String sql) throws SQLException{
