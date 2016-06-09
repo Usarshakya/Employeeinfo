@@ -5,11 +5,19 @@
  */
 package com.sansar.employeeinformation.UI;
 
+import com.sansar.employeeinformation.dao.EmployeeDAO;
+import com.sansar.employeeinformation.dao.impl.EmployeeDAOImpl;
+import com.sansar.employeeinformation.entity.Employee;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Rasna
  */
-public class AddEmployeeForm extends javax.swing.JInternalFrame {
+public class AddEmployeeForm extends javax.swing.JFrame {
+
+    private EmployeeDAO empdao = new EmployeeDAOImpl();
 
     /**
      * Creates new form AddEmployeeForm
@@ -27,74 +35,110 @@ public class AddEmployeeForm extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        fname = new javax.swing.JLabel();
-        ftxt = new javax.swing.JTextField();
-        lname = new javax.swing.JLabel();
-        ltxt = new javax.swing.JTextField();
-        email = new javax.swing.JLabel();
-        email_txt = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        txt_fname = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txt_lname = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txt_email = new javax.swing.JTextField();
+        btnsave = new javax.swing.JButton();
 
-        setTitle("Add Employee Info");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Add Eployee info");
 
-        fname.setText("Enter First Name");
+        jLabel1.setText("Enter First Name");
 
-        lname.setText("Enter Last Name");
-
-        ltxt.addActionListener(new java.awt.event.ActionListener() {
+        txt_fname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ltxtActionPerformed(evt);
+                txt_fnameActionPerformed(evt);
             }
         });
 
-        email.setText("Enter Email");
+        jLabel2.setText("Enter Last Name");
+
+        txt_lname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_lnameActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Email");
+
+        btnsave.setText("Save");
+        btnsave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(fname, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ftxt)
-                    .addComponent(lname, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ltxt)
-                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(email_txt, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel3)
+                        .addComponent(txt_fname)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_lname)
+                        .addComponent(txt_email, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
+                    .addComponent(btnsave))
+                .addContainerGap(189, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(fname)
+                .addGap(31, 31, 31)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ftxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lname)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ltxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(email)
+                .addComponent(txt_fname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(email_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addComponent(txt_lname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(btnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ltxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ltxtActionPerformed
+    private void txt_fnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_fnameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ltxtActionPerformed
+    }//GEN-LAST:event_txt_fnameActionPerformed
+
+    private void txt_lnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_lnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_lnameActionPerformed
+
+    private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
+        try {
+            int result = empdao.insert(new Employee(1, txt_fname.getText(), txt_lname.getText(), txt_email.getText()));
+            if (result > 0) {
+                JOptionPane.showMessageDialog(null, "Inserted Successfully");
+            }
+        } catch (ClassNotFoundException | SQLException ce) {
+            JOptionPane.showMessageDialog(null, "insert again");
+
+        }
+    }//GEN-LAST:event_btnsaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel email;
-    private javax.swing.JTextField email_txt;
-    private javax.swing.JLabel fname;
-    private javax.swing.JTextField ftxt;
-    private javax.swing.JLabel lname;
-    private javax.swing.JTextField ltxt;
+    private javax.swing.JButton btnsave;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField txt_email;
+    private javax.swing.JTextField txt_fname;
+    private javax.swing.JTextField txt_lname;
     // End of variables declaration//GEN-END:variables
 }

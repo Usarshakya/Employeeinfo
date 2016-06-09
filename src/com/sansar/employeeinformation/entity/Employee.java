@@ -12,17 +12,17 @@ package com.sansar.employeeinformation.entity;
 public class Employee {
     private int id;
     private String firstName,lastName,email;
-    private Boolean status;
+   
 
     public Employee() {
     }
 
-    public Employee(int id, String firstName, String lastName, String email, Boolean status) {
+    public Employee(int id, String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.status = status;
+
     }
 
     public int getId() {
@@ -57,15 +57,7 @@ public class Employee {
         this.email = email;
     }
 
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-    
-    
+   
     
     
 }

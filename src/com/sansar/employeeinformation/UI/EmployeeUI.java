@@ -5,13 +5,16 @@
  */
 package com.sansar.employeeinformation.UI;
 
+import com.sansar.employeeinformation.dao.impl.EmployeeDAOImpl;
+import com.sansar.employeeinformation.dao.EmployeeDAO;
+
 /**
  *
  * @author Rasna
  */
 public class EmployeeUI extends javax.swing.JFrame {
-
-   
+    
+    
 
     public EmployeeUI() {
         initComponents();
@@ -46,10 +49,10 @@ public class EmployeeUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(update_emp))
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(addEmp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(update_emp, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -65,11 +68,9 @@ public class EmployeeUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmpActionPerformed
-        EmployeeUI em=new EmployeeUI();
-        em.setVisible(false);
+      
         AddEmployeeForm addEmp = new AddEmployeeForm();
-        add(addEmp);
-        addEmp.show();
+        addEmp.setVisible(true);
 
 
     }//GEN-LAST:event_addEmpActionPerformed
