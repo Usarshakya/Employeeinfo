@@ -6,11 +6,19 @@
 package com.sansar.employeeinformation.UI;
 
 import com.sansar.employeeinformation.dao.EmployeeDAO;
+import com.sansar.employeeinformation.dao.SalaryDAO;
 import com.sansar.employeeinformation.dao.impl.EmployeeDAOImpl;
+import com.sansar.employeeinformation.dao.impl.SalaryDAOImpl;
 import com.sansar.employeeinformation.dbutil.DBConnection;
 import com.sansar.employeeinformation.entity.Employee;
+import com.sansar.employeeinformation.entity.Salary;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +28,7 @@ import javax.swing.JOptionPane;
 public class EmployeeUI extends javax.swing.JFrame {
     
     private EmployeeDAO empdao = new EmployeeDAOImpl();
+    private SalaryDAO saldao=new SalaryDAOImpl();
 
     /**
      * Creates new form InsertEmpForm
@@ -51,9 +60,12 @@ public class EmployeeUI extends javax.swing.JFrame {
         UpdateEmp = new javax.swing.JButton();
         delEmp = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        btn_Export = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        txt_salary = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Search Employee Info");
+        setTitle("Employee Information");
 
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -100,6 +112,15 @@ public class EmployeeUI extends javax.swing.JFrame {
             }
         });
 
+        btn_Export.setText("Export");
+        btn_Export.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ExportActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Salary Amt.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -108,35 +129,44 @@ public class EmployeeUI extends javax.swing.JFrame {
                 .addGap(122, 122, 122)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel4)))
+                        .addContainerGap()
+                        .addComponent(addEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(UpdateEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_Export, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel4))
+                                        .addGap(6, 6, 6))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel6)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_fname)
                             .addComponent(txt_email)
                             .addComponent(txt_lname)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txt_id, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                                .addComponent(txt_id, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(delEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(addEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(UpdateEmp)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)))
+                                .addComponent(delEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_salary))))
                 .addGap(69, 69, 69))
         );
         layout.setVerticalGroup(
@@ -162,12 +192,17 @@ public class EmployeeUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(39, 39, 39)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_salary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addEmp)
                     .addComponent(UpdateEmp)
+                    .addComponent(btn_Export)
                     .addComponent(btnExit))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
 
         pack();
@@ -191,11 +226,19 @@ public class EmployeeUI extends javax.swing.JFrame {
 
     private void addEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmpActionPerformed
         try {
+            if(!empdao.isEmailExist(txt_email.getText())){
+                saldao.insert(new Salary(1, txt_salary.getText(), null));
             int result = empdao.insert(new Employee(1, txt_fname.getText(), txt_lname.getText(), txt_email.getText()));
             if (result > 0) {
                 JOptionPane.showMessageDialog(null, "Inserted Successfully");
                 txt_fname.setText(null);
                 txt_lname.setText(null);
+                txt_email.setText(null);
+                txt_salary.setText(null);
+            }
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"Already Exists");
                 txt_email.setText(null);
             }
         } catch (ClassNotFoundException | SQLException ce) {
@@ -211,10 +254,15 @@ public class EmployeeUI extends javax.swing.JFrame {
 
     private void delEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delEmpActionPerformed
         try {
-            
+         
             int result = empdao.delete(Integer.parseInt(txt_id.getText()));
             if (result > 0) {
                 JOptionPane.showConfirmDialog(null, "Do You Really Want To Delete?");
+                JOptionPane.showMessageDialog(null, "Deleted successfully");
+                txt_id.setText(null);
+                txt_fname.setText(null);
+                txt_lname.setText(null);
+                txt_email.setText(null);
             }
             
         } catch (ClassNotFoundException | SQLException ce) {
@@ -229,11 +277,24 @@ public class EmployeeUI extends javax.swing.JFrame {
             if (result > 0) {
                 
                 JOptionPane.showMessageDialog(null, "Update sucessfully");
+                txt_id.setText(null);
+                txt_fname.setText(null);
+                txt_lname.setText(null);
+                txt_email.setText(null);
             }
         } catch (ClassNotFoundException | SQLException ce) {
             JOptionPane.showMessageDialog(null, ce.getMessage());
         }
     }//GEN-LAST:event_UpdateEmpActionPerformed
+
+    private void btn_ExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ExportActionPerformed
+       try{
+        empdao.export();
+        JOptionPane.showMessageDialog(null, "Exported sucessfully");
+       }catch(ClassNotFoundException | SQLException ce) {
+            JOptionPane.showMessageDialog(null, ce.getMessage());
+        }
+    }//GEN-LAST:event_btn_ExportActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -241,15 +302,18 @@ public class EmployeeUI extends javax.swing.JFrame {
     private javax.swing.JButton addEmp;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btn_Export;
     private javax.swing.JButton delEmp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_fname;
     private javax.swing.JTextField txt_id;
     private javax.swing.JTextField txt_lname;
+    private javax.swing.JTextField txt_salary;
     // End of variables declaration//GEN-END:variables
 }

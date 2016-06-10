@@ -8,6 +8,8 @@ package com.sansar.employeeinformation.dao.impl;
 import com.sansar.employeeinformation.dao.EmployeeDAO;
 import com.sansar.employeeinformation.dbutil.DBConnection;
 import com.sansar.employeeinformation.entity.Employee;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,9 +43,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         db.open();
         String sql = "UPDATE tbl_categories SET first_name=?,last_name=?,email=? WHERE id=?";
         PreparedStatement stmt = db.initStatement(sql);
+
         stmt.setString(1, e.getFirstName());
         stmt.setString(2, e.getLastName());
         stmt.setString(3, e.getEmail());
+        stmt.setInt(4, e.getId());
 
         int result = db.executeUpdate();
         db.close();
@@ -71,12 +75,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         stmt.setInt(1, id);
 
         ResultSet rs = db.executeQuery();
+
         while (rs.next()) {
             e = mapdata(rs);
         }
         db.close();
         return e;
-        
+
     }
 
     @Override
@@ -102,4 +107,50 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         return e;
     }
 
+    public Boolean isEmailExist(String email) throws ClassNotFoundException, SQLException {
+
+        Boolean found = false;
+        db.open();
+        String sql = "select * from tbl_categories where email=?";
+        PreparedStatement stmt = db.initStatement(sql);
+        stmt.setString(1, email);
+        ResultSet rs = db.executeQuery();
+        while (rs.next()) {
+            found = true;
+
+        }
+        db.close();
+        return found;
+
+    }
+
+    @Override
+    public void export() throws ClassNotFoundException, SQLException {
+        String filename = "D:\\sansar.csv";
+        try {
+            FileWriter fw = new FileWriter(filename);
+            // Class.forName("com.mysql.jdbc.Driver").newInstance();
+            //Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "root");
+            db.open();
+            String sql = "select * from tbl_categories";
+            PreparedStatement stmt = db.initStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                fw.append(rs.getString(1));
+                fw.append(',');
+                fw.append(rs.getString(2));
+                fw.append(',');
+                fw.append(rs.getString(3));
+                fw.append(',');
+                fw.append(rs.getString(4));
+                fw.append('\t');
+            }
+            fw.flush();
+            fw.close();
+            db.close();
+            //System.out.println("CSV File is created successfully.");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

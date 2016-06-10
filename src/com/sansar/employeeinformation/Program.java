@@ -30,19 +30,5 @@ public class Program {
         EmployeeUI emp = new EmployeeUI();
         emp.setVisible(true);
 
-        /**
-         * Scanner input = new Scanner(System.in);
-         *
-         * EmployeeDAO empdao = new EmployeeDAOImpl();
-         *
-         * System.out.println("1. Add Employee");
-         *
-         * System.out.println("Enter Your Choice:"); switch (input.nextInt()) {
-         * case 1: try { empdao.insert(new Employee(1, "rasna", "shakya",
-         * "rasnashakya@gmail.com")); } catch (ClassNotFoundException |
-         * SQLException ce) { System.out.println(ce.getMessage()); } break; }
-         *
-         * }
-         */
     }
 }

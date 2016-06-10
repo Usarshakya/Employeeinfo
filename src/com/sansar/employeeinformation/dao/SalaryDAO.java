@@ -5,7 +5,7 @@
  */
 package com.sansar.employeeinformation.dao;
 
-import com.sansar.employeeinformation.entity.Employee;
+import com.sansar.employeeinformation.entity.Salary;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,6 +13,9 @@ import java.util.List;
  *
  * @author Rasna
  */
-public interface EmployeeDAO extends GenericDAO<Employee> {
+public interface SalaryDAO {
+
+    int insert(Salary s) throws ClassNotFoundException, SQLException;
+
     
 }
